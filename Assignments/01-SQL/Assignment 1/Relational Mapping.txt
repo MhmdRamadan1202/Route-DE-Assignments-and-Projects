@@ -1,0 +1,55 @@
+--- Relational Mapping
+####################
+
+MEMBERSHIP_PLAN 	  (Plan_ID (PK),
+						Plan_Name,
+						Duration_Months,
+						Monthly_Fee)
+
+
+MEMBER          	  (Member_ID (PK),
+						Plan_ID (FK)    → MEMBERSHIP_PLAN (Plan_ID),
+						First_Name,
+						Last_Name,
+						Date_Of_Birth,
+						Phone_Number,
+						Address )
+						
+
+TRAINER         	  (Trainer_ID (PK),
+						First_Name,
+						Last_Name,
+						Phone_Number,
+						Hire_Date,
+						Specialty)
+
+ROOM            	  (Room_Number (PK),
+						Room_Name,
+						Capacity)
+						
+
+FITNESS_CLASS   	  (Class_ID (PK) , 
+						Trainer_ID (FK)  → TRAINER (Trainer_ID),
+						Room_Number (FK) → ROOM (Room_Number),
+						Class_Name,
+						Difficulty_Level,
+						Class_Date,
+						Start_Time,
+						Maximum_Capacity)
+						
+
+CERTIFICATION   	  (Certification_Code (PK),
+						Certification_Name,
+						Issuing_Organization)
+						
+
+Registration          ( ----PrimaryKey(Member_ID,Class_ID)----
+						Member_ID (FK)  → MEMBER (Member_ID),
+						Class_ID (FK)   → FITNESS_CLASS (Class_ID),
+						Registration_Date,
+						Registration_Status)
+
+TrainerCertification  (----PrimaryKey(Trainer_ID,Certification_Code)---
+						Trainer_ID (FK)         → TRAINER (Trainer_ID),
+					    Certification_Code (FK) → CERTIFICATION (Certification_Code),
+						Earned_Date)
